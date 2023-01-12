@@ -18,9 +18,9 @@
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" value="{{ $a->name }}"
-                                            name="name" id="basic-default-name" placeholder="Tên" />
+                                            name="name" id="basic-default-name" placeholder="Tên" readonly />
                                             @error('name')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                     </div>
                                 </div>
@@ -29,10 +29,10 @@
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
                                             <input type="text" id="basic-default-email" value="{{ $a->email }}"
-                                                name="email" class="form-control" placeholder="abc@gmail.com" />
+                                                name="email" class="form-control" placeholder="abc@gmail.com" readonly />
                                         </div>
                                         @error('email')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                         {{-- <div class="form-text">You can use letters, numbers & periods</div> --}}
                                     </div>
@@ -43,7 +43,7 @@
                                         <input type="password" class="form-control" value="{{ $a->password }}"
                                             name="password" id="basic-default-name" placeholder="Mật khẩu" readonly />
                                             @error('password')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                     </div>
                                 </div>
@@ -57,7 +57,7 @@
                                             <option {{ $a->role == 1 ? 'selected' : '' }} value="1">User</option>
                                         </select>
                                         @error('role')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                         @enderror
                                     </div>
                                 </div>

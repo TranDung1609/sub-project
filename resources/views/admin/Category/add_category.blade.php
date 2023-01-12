@@ -19,7 +19,7 @@
                                     <input type="text" class="form-control" name="name" id="basic-default-name"
                                         placeholder="Tên" />
                                         @error('name')
-                                        <p>{{$message}}</p>
+                                        <p class="text-danger">{{$message}}</p>
                                         @enderror
                                 </div>
                             </div>
@@ -32,7 +32,7 @@
                                         <option value="1">Hiển thị</option>
                                     </select>
                                     @error('status')
-                                        <p>{{$message}}</p>
+                                        <p class="text-danger">{{$message}}</p>
                                         @enderror
                                 </div>
                             </div>

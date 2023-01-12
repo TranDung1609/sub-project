@@ -28,4 +28,12 @@ class CategoryRequest extends FormRequest
             'status' => 'required',
         ];
     }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên danh mục',
+            'name.max' => 'Tên danh mục có tối đa 50 ký tự',
+            'status.required' => 'Vui lòng chọn Status',
+        ];
+    }
 }

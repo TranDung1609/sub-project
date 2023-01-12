@@ -20,7 +20,7 @@
                                         <input type="text" value="{{ $product->name }}" class="form-control"
                                             name="name" id="basic-default-name" placeholder="Tên" />
                                             @error('name')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                     </div>
                                 </div>
@@ -31,7 +31,7 @@
                                             <input type="number" value="{{ $product->price }}" id="basic-default-price"
                                                 name="price" class="form-control" placeholder="Giá" />
                                                 @error('price')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                         </div>
                                     </div>
@@ -50,8 +50,8 @@
                                                 @endforeach
                                             @endif
                                         </div>
-                                        @error('image')
-                                                <p>{{$message}}</p>
+                                        @error('image.*')
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                         <input value="{{ $product->quantity }}" type="number" class="form-control"
                                             name="quantity" id="basic-default-quantity" placeholder="Số lượng" />
                                             @error('quantity')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                     <div class="col-sm-10">
                                         <textarea name="description" class="form-control" id="basic-default-desc" rows="5" placeholder="Mô tả">{{ $product->description }}</textarea>
                                         @error('description')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                             @endforeach 
                                     </select>
                                     @error('category_id')
-                                                <p>{{$message}}</p>
+                                                <p class="text-danger">{{$message}}</p>
                                             @enderror
                                     </div>
                                 </div>

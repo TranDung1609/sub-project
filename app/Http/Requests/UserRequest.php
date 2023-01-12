@@ -25,17 +25,21 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|max:50',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'email' => 'required|email',
+            'password' => 'required|min:8',
             'role' => 'required',
         ];
     }
-//     public function messages()
-// {
-//     return [
-//         'name.required' => 'dung',
-//         'name.max' => 'max 5',
-//         'body.required' => 'A message is required',
-//     ];
-// }
+    public function messages()
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên',
+            'name.max' => 'Tên tối đa 50 kí tự',
+            'email.required' => 'Vui lòng nhập email',
+            'email.email' => 'Email phải theo cấu trúc abc@gmail.com',
+            'password.required' => 'Vui lòng nhập password',
+            'password.min' => 'Password phải có ít nhất 8 ký tự',
+            'role.required' => 'Vui lòng chọn role',
+        ];
+    }
 }

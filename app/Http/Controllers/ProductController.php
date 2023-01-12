@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -26,13 +27,14 @@ class ProductController extends Controller
 
     public function insert(ProductRequest $request)
     {
+        DB::beginTransaction();
         try {
             $data = $request->all();
             $product = new Product();
             $product->fill($data);
             $product->save();
             $product->categories()->attach($request->category_id);
-            if ($request->file('image')) {
+            if ($request->Hasfile('image')) {
                 $uploadPath = 'storage/uploads/';
                 foreach ($request->file('image') as $imageFile) {
                     $extention = $imageFile->getClientOriginalExtension();
@@ -46,9 +48,10 @@ class ProductController extends Controller
                     ]);
                 }
             }
-
+            DB::commit();
             return redirect('product/list-product');
         } catch (\Exception $e) {
+            DB::rollback();
             throw new \Exception($e->getMessage());
         }
     }
@@ -71,15 +74,15 @@ class ProductController extends Controller
         try {
         $data = $request->all();
         $product = Product::find($id)->fill($data);
-
+        
         $product->categories()->sync($request->category_id);
-        Image::where('product_id', $id)->delete();
-        if ($request->file('image')) {
+        // Image::where('product_id', $id)->delete();
+        if ($request->file('image')){
             $uploadPath = 'storage/uploads/';
             foreach ($request->file('image') as $imageFile) {
                 $extention = $imageFile->getClientOriginalExtension();
                 $nameImage = current(explode('.', $imageFile->getClientOriginalName()));
-                $filename = $nameImage . '.' . $extention;
+                $filename = time().$nameImage . '.' . $extention;
                 $imageFile->move($uploadPath, $filename);
 
                 $product->images()->create([

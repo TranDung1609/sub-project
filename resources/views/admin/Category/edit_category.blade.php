@@ -19,23 +19,22 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" value="{{ $cate->name }}"
                                             name="name" id="basic-default-name" placeholder="Tên" />
-                                            @error('name')
-                                                <p>{{$message}}</p>
-                                            @enderror
+                                        @error('name')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-message">Status</label>
                                     <div class="col-sm-10">
-                                        <select value="" name="status"
-                                            class="form-control input-sm m-bot15">
-
+                                        <select value="" name="status" class="form-control input-sm m-bot15">
                                             <option {{ $cate->status == 0 ? 'selected' : '' }} value="0">Ẩn</option>
-                                            <option {{ $cate->status == 1 ? 'selected' : '' }} value="1">Hiển thị</option>
+                                            <option {{ $cate->status == 1 ? 'selected' : '' }} value="1">Hiển thị
+                                            </option>
                                         </select>
                                         @error('status')
-                                                <p>{{$message}}</p>
-                                            @enderror
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="row justify-content-end">
