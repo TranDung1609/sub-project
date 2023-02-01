@@ -13,7 +13,6 @@
           <table id="table_id" class="table">
             <thead>
               <tr>
-                <th>abc</th>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>

@@ -59,5 +59,4 @@ Route::middleware(['auth', 'verified', 'checkUser'])->prefix('product')->group(f
     Route::get('delete-product/{id}', [ProductController::class, 'delete'])->name('product.delete');
     Route::post('update-product/{id}', [ProductController::class, 'update'])->name('product.update');
 });
-Route::get();
 require __DIR__.'/auth.php';
