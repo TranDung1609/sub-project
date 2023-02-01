@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified', 'checkUser'])->prefix('category')->group(
 });
 Route::middleware(['auth', 'verified', 'checkUser'])->prefix('product')->group(function () {
     Route::get('add-product', [ProductController::class, 'add_product'])->name('product.add');
-    Route::get('list-product', [ProductController::class, 'list_product'])->name('product.list');
+    Route::get('list-product', [ProductController::class, 'index'])->name('product.list');
     Route::post('save-product', [ProductController::class, 'insert'])->name('product.save');
     Route::get('edit-product/{id}', [ProductController::class, 'edit'])->name('product.edit');
     Route::get('delete-product/{id}', [ProductController::class, 'delete'])->name('product.delete');

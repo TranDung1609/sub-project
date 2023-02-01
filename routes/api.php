@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ListApiController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,13 @@ Route::middleware('api')->group(function(){
     Route::post('login',[AuthController::class, 'login']);
     Route::post('register',[AuthController::class, 'register']);
     Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('get-user', [AuthController::class, 'getUserInfo']);
+
+    // Route::get('/get-user', [ListApiController::class, 'getUser']); 
 });
+
+Route::get('/get-category', [ListApiController::class, 'getCategory']);
+Route::get('/get-product', [ListApiController::class, 'listProduct']);
+Route::get('/search/{name}', [ListApiController::class, 'search']);
+Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
+Route::get('/product/{id}', [ListApiController::class, 'getProduct']);

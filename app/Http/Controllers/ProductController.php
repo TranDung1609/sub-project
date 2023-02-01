@@ -6,11 +6,17 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Product;
+use App\Services\ProductService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    protected $service;
+    public function __construct(ProductService $service)
+    {
+        $this->service = $service;
+    }
     public function add_product()
     {
         $category = Category::all();
@@ -18,10 +24,9 @@ class ProductController extends Controller
         return view('admin.Product.add_product', ['category' => $category]);
     }
 
-    public function list_product()
+    public function index()
     {
         $product = Product::all();
-        // $product = Product::paginate(9);
         return view('admin.Product.list_product', ['product' => $product]);
     }
 
@@ -29,25 +34,7 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $data = $request->all();
-            $product = new Product();
-            $product->fill($data);
-            $product->save();
-            $product->categories()->attach($request->category_id);
-            if ($request->Hasfile('image')) {
-                $uploadPath = 'storage/uploads/';
-                foreach ($request->file('image') as $imageFile) {
-                    $extention = $imageFile->getClientOriginalExtension();
-                    $nameImage = current(explode('.', $imageFile->getClientOriginalName()));
-                    $filename = time() . $nameImage . '.' . $extention;
-                    $imageFile->move($uploadPath, $filename);
-
-                    $product->images()->create([
-                        'product_id' => $product->id,
-                        'image' => $filename,
-                    ]);
-                }
-            }
+            $this->service->create_product($request);
             DB::commit();
             return redirect('product/list-product');
         } catch (\Exception $e) {
@@ -58,43 +45,28 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        DB::beginTransaction();
         try {
         $product = Product::find($id);
         // dd($product->categories);
         $category = Category::all();
-
+        DB::commit();
         return view('admin.Product.edit_product', ['product' => $product], ['category' => $category]);
     } catch (\Exception $e) {
+        DB::rollback();
         throw new \Exception($e->getMessage());
     }
     }
 
     public function update(ProductRequest $request, $id)
     {
+        DB::beginTransaction();
         try {
-        $data = $request->all();
-        $product = Product::find($id)->fill($data);
-        
-        $product->categories()->sync($request->category_id);
-        // Image::where('product_id', $id)->delete();
-        if ($request->file('image')){
-            $uploadPath = 'storage/uploads/';
-            foreach ($request->file('image') as $imageFile) {
-                $extention = $imageFile->getClientOriginalExtension();
-                $nameImage = current(explode('.', $imageFile->getClientOriginalName()));
-                $filename = time().$nameImage . '.' . $extention;
-                $imageFile->move($uploadPath, $filename);
-
-                $product->images()->create([
-                    'product_id' => $product->id,
-                    'image' => $filename,
-                ]);
-            }
-        }
-        $product->update($data);
-
+            $this->service->update_product($request,$id);
+        DB::commit();
         return redirect('product/list-product');
     } catch (\Exception $e) {
+        DB::rollback();
         throw new \Exception($e->getMessage());
     }
     }
@@ -103,7 +75,7 @@ class ProductController extends Controller
     {
         try{
         $data = $request->all();
-        Product::find($id)->delete();
+        Product::find($id)->delete($data);
 
         return redirect('product/list-product');
     } catch (\Exception $e) {

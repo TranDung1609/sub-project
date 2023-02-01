@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use JWTAuth;
 
 class AuthController extends Controller
 {
@@ -88,5 +89,8 @@ class AuthController extends Controller
             ]
         ]);
     }
-
+    // public function getUserInfo(Request $request){
+    //     $user = JWTAuth::toUser($request->token);
+    //     return response()->json(['result' => $user]);
+    // }
 }
