@@ -37,6 +37,6 @@ Route::get('/search/{name}', [ListApiController::class, 'search']);
 Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
 Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
 Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
-Route::get('test', function(){
+Route::get('/test', function(){
     return response()->json(['dataa'=>"aaaa"]);
 });
