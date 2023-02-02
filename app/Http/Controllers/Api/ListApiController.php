@@ -35,6 +35,11 @@ class ListApiController extends Controller
         $product = Category::find($id)->products;     
         return $this->responseData($product);
     }
+    public function CategoryProduct($id)
+    {
+        $category = Product::find($id)->categories;
+        return $this->responseData($category);
+    }
     public function getProduct($id){
         $product = Product::with(['images'])->get()->find($id);
         return $this->responseData($product);

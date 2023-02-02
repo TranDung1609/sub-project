@@ -30,8 +30,10 @@ Route::middleware('api')->group(function(){
     // Route::get('/get-user', [ListApiController::class, 'getUser']); 
 });
 // Route::put('/edit-profile',[AuthController::class, 'updateProfile']);
+
 Route::get('/get-category', [ListApiController::class, 'getCategory']);
 Route::get('/get-product', [ListApiController::class, 'listProduct']);
 Route::get('/search/{name}', [ListApiController::class, 'search']);
 Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
 Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
+Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
