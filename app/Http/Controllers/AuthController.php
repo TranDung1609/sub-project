@@ -99,7 +99,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function updateProfile(Request $request)
+    public function editProfile(Request $request)
     {
         $user = User::findOrFail(Auth::user()->id);
         $user->profile()->updateOrCreate(
