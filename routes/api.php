@@ -25,6 +25,7 @@ Route::middleware('api')->group(function(){
     Route::post('register',[AuthController::class, 'register']);
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('get-user', [AuthController::class, 'getUserInfo']);
+    Route::put('edit',[AuthController::class, 'updateProfile']);
 
     // Route::get('/get-user', [ListApiController::class, 'getUser']); 
 });

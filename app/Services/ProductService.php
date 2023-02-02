@@ -38,7 +38,7 @@ class ProductService
             foreach ($request->file('image') as $imageFile) {
                 $extention = $imageFile->getClientOriginalExtension();
                 $nameImage = current(explode('.', $imageFile->getClientOriginalName()));
-                $filename = time().$nameImage . '.' . $extention;
+                $filename = time().$nameImage.'.'.$extention;
                 $imageFile->move($uploadPath, $filename);
 
                 $product->images()->create([

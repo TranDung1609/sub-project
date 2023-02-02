@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use JWTAuth;
+
 
 class AuthController extends Controller
 {
@@ -89,8 +89,34 @@ class AuthController extends Controller
             ]
         ]);
     }
-    // public function getUserInfo(Request $request){
-    //     $user = JWTAuth::toUser($request->token);
-    //     return response()->json(['result' => $user]);
-    // }
+
+    
+    public function getUserInfo(){
+        $user = Auth::user();
+        Auth::user()->profile;
+        return response()->json([
+            'user' => $user,
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $user->profile()->updateOrCreate(
+            ['user_id' => $request->user()->id],
+            [
+                'phone' => $request->phone,
+                'age' => $request->age,
+                'gender' => $request->gender,
+                'address' => $request->address,
+            ]
+        );
+        $profile = User::find(Auth::user()->id)->profile;
+        $user['profile'] = $profile;
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully edit profile',
+            'user' => $user
+        ]);
+    }
 }

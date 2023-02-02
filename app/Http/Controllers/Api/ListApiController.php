@@ -32,7 +32,7 @@ class ListApiController extends Controller
     }
     public function ProductCategory($id)
     {
-        $product = Category::find($id)->products;
+        $product = Category::find($id)->products;     
         return $this->responseData($product);
     }
     public function getProduct($id){
