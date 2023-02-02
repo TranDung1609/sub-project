@@ -25,11 +25,11 @@ Route::middleware('api')->group(function(){
     Route::post('register',[AuthController::class, 'register']);
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('get-user', [AuthController::class, 'getUserInfo']);
-    Route::put('/edit-user',[AuthController::class, 'updateProfile']);
+    
 
     // Route::get('/get-user', [ListApiController::class, 'getUser']); 
 });
-
+Route::put('/edit-profile',[AuthController::class, 'updateProfile']);
 Route::get('/get-category', [ListApiController::class, 'getCategory']);
 Route::get('/get-product', [ListApiController::class, 'listProduct']);
 Route::get('/search/{name}', [ListApiController::class, 'search']);
