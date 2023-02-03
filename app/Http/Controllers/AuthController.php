@@ -102,6 +102,14 @@ class AuthController extends Controller
     public function editProfile(Request $request)
     {
         $user = User::findOrFail(Auth::user()->id);
+        if ($request->hasFile('image')) {
+            $uploadPath = 'avatars';
+            $file = $request->file('image');
+            $extention = $file->getClientOriginalExtension();
+            $nameImage = current(explode('.', $file->getClientOriginalName()));
+            $filename = time().$nameImage . '.' . $extention;
+            $file->move($uploadPath, $filename);
+        }
         $user->profile()->updateOrCreate(
             ['user_id' => $request->user()->id],
             [
@@ -109,6 +117,7 @@ class AuthController extends Controller
                 'age' => $request->age,
                 'gender' => $request->gender,
                 'address' => $request->address,
+                'avatar' => $filename
             ]
         );
         $profile = User::find(Auth::user()->id)->profile;
@@ -118,5 +127,5 @@ class AuthController extends Controller
             'message' => 'Successfully edit profile',
             'user' => $user
         ]);
-    }
+    } 
 }

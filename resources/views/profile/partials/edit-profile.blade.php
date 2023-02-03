@@ -4,9 +4,25 @@
             {{ __('Update Profile') }}
         </h2>
     </header>
-
+ 
     <form method="post" action="{{ route('profile.updateProfile') }}" class="mt-6 space-y-6">
         @csrf
+        {{-- <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="">Ảnh</label>
+            <div class="col-sm-10">
+                <div class="input-group input-group-merge">
+                    <input type="file" id="" name="avatar" class="form-control" multiple />
+                </div>
+                <div >
+                    @if (Auth::user()->profile)
+                        @foreach (Auth::user()->profile as $profile)
+                            <img src="{{asset('/avatars/'."$profile->avatar" )}}"
+                            style="max-width: 50px; max-heigh: 50px">
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        </div> --}}
         <div>
             <label for="">Phone</label>
             <input type="text" name="phone" value="{{ Auth::user()->profile->phone ?? '' }}" class="mt-1 block w-full" >

@@ -24,8 +24,7 @@ Route::middleware('api')->group(function(){
     Route::post('login',[AuthController::class, 'login']);
     Route::post('register',[AuthController::class, 'register']);
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::get('get-user', [AuthController::class, 'getUserInfo']);
-    
+    Route::get('get-user', [AuthController::class, 'getUserInfo']);    
     Route::patch('edit-profile-user',[AuthController::class, 'editProfile']);
     // Route::get('/get-user', [ListApiController::class, 'getUser']); 
 });
@@ -33,10 +32,7 @@ Route::middleware('api')->group(function(){
 
 Route::get('/get-category', [ListApiController::class, 'getCategory']);
 Route::get('/get-product', [ListApiController::class, 'listProduct']);
-Route::get('/search/{name}', [ListApiController::class, 'search']);
+Route::get('/search', [ListApiController::class, 'search']);
 Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
 Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
 Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
-Route::get('/test', function(){
-    return response()->json(['dataa'=>"aaaa"]);
-});

@@ -26,22 +26,26 @@ class ListApiController extends Controller
         $product = Product::with(['categories', 'images'])->paginate(Params::LIMIT_SHOW);
         return $this->responseData($product);
     }
-    public function search($name){
-        $product = Product::with(['categories', 'images'])->where('name','like','%'.$name.'%')->paginate(10);
+    public function search(Request $request){
+        $param= $request->input('search');
+        $product = Product::with(['categories', 'images'])->where('name','like','%'.$param.'%')->paginate(Params::LIMIT_SHOW);
         return $this->responseData($product);
     }
     public function ProductCategory($id)
     {
-        $product = Category::find($id)->products;     
-        return $this->responseData($product);
+        // $product = Category::find($id)->products;
+
+        $list_products = Category::find($id)->products->pluck('id');
+        $products = Product::with('images')->whereIn('id',$list_products)->paginate(Params::LIMIT_SHOW);   
+        return $this->responseData($products);
     }
-    public function CategoryProduct($id)
-    {
-        $category = Product::find($id)->categories;
-        return $this->responseData($category);
-    }
+    // public function CategoryProduct($id)
+    // {
+    //     $category = Product::find($id)->categories;
+    //     return $this->responseData($category);
+    // }
     public function getProduct($id){
-        $product = Product::with(['images'])->get()->find($id);
+        $product = Product::with(['images'])->find($id);
         return $this->responseData($product);
     }
 }

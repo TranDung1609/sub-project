@@ -15,5 +15,6 @@ class Profile extends Model
         'age',
         'gender',
         'address',
+        'avatar'
     ];
 }
