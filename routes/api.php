@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ListApiController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +37,5 @@ Route::get('/search', [ListApiController::class, 'search']);
 Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
 Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
 Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
+
+Route::post('/payment', [PaymentController::class, 'payment']);
