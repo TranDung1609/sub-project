@@ -10,12 +10,13 @@ class Product extends Model
     use HasFactory;
 
     protected $table = 'products';
-
+    protected $timestamp = false;
     protected $fillable = [
         'name',
         'price',
         'quantity',
         'description',
+        'discount'
     ];
 
     public function images()

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -59,4 +61,10 @@ Route::middleware(['auth', 'verified', 'checkUser'])->prefix('product')->group(f
     Route::get('delete-product/{id}', [ProductController::class, 'delete'])->name('product.delete');
     Route::post('update-product/{id}', [ProductController::class, 'update'])->name('product.update');
 });
+Route::middleware(['auth', 'verified', 'checkUser'])->prefix('order')->group(function () {
+    Route::get('list-order', [OrderController::class, 'index'])->name('order.list');
+    Route::get('view-order/{id}', [OrderController::class, 'view'])->name('order.view');
+    Route::get('complete-order/{id}', [OrderController::class, 'complete'])->name('order.complete');
+});
+
 require __DIR__.'/auth.php';

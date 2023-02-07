@@ -33,7 +33,7 @@ class ListApiController extends Controller
     }
     public function ProductCategory($id)
     {
-        // $product = Category::find($id)->products;
+        
 
         $list_products = Category::find($id)->products->pluck('id');
         $products = Product::with('images')->whereIn('id',$list_products)->paginate(Params::LIMIT_SHOW);   

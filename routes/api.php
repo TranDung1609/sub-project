@@ -20,13 +20,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('register',[AuthController::class, 'register']);
+Route::post('login',[AuthController::class, 'login']);
 
-Route::middleware('api')->group(function(){
-    Route::post('login',[AuthController::class, 'login']);
-    Route::post('register',[AuthController::class, 'register']);
+Route::middleware('auth:api')->group(function(){
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('get-user', [AuthController::class, 'getUserInfo']);    
     Route::patch('edit-profile-user',[AuthController::class, 'editProfile']);
+    Route::post('/payment', [PaymentController::class, 'payment']);
     // Route::get('/get-user', [ListApiController::class, 'getUser']); 
 });
 // Route::put('/edit-profile',[AuthController::class, 'updateProfile']);
@@ -38,4 +39,3 @@ Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory
 Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
 Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
 
-Route::post('/payment', [PaymentController::class, 'payment']);

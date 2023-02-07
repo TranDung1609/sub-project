@@ -13,35 +13,26 @@
           <table id="table_id" class="table">
             <thead>
               <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th>{{__('Mã đơn hàng')}}</th>
+                <th>{{__('Tên người đặt')}}</th>
+                <th>{{__('Email')}}</th>
+                <th>{{__('Tổng tiền')}}</th>
+                <th>{{__('Tình Trạng')}}</th>
+                <th>{{__('Action')}}</th>
               </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @foreach ($cate as $cate)
+                @foreach ($datas as $data)
                 <tr>
-                    <td>{{$cate->id}}</td>
-                    <td>{{$cate->name}}</td>
-                    <td>
-                    @php
-                        if($cate->status==0){
-                            echo "Ẩn";
-                        }elseif ($cate->status==1) {
-                            echo "Hiển thị";
-                        }else{
-                            echo " ";
-                        }
-                    @endphp
-                    </td>
+                    <td>{{$data->id}}</td>
+                    <td>{{$data->name}}</td>
+                    <td>{{$data->email}}</td>
+                    <td>{{$data->order_total}}</td>
+                    <td>{{$data->order_status}}</td>
                     <td>
                       <div >
-                          <a class="btn btn-sm btn-primary" href="{{route('category.edit',$cate->id)}}">
-                            <i class="bx bx-edit-alt me-1"></i> Edit</a>
-                          {{-- <a onclick="return confirm('Bạn có muốn xoá category này không?')" class="btn btn-sm btn-danger" href="{{route('category.delete',$cate->id)}}">
-                            <i class="bx bx-trash me-1"></i> Delete</a
-                          > --}}
+                          <a class="btn btn-sm btn-primary" href="{{route('order.view',$data->id)}}">Chi tiết</a>
+                          <a class="btn btn-sm btn-danger" href="{{route('order.complete',$data->id)}}">Xác nhận</a>
                         </div>
                     </td>
                   </tr>

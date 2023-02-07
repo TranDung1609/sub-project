@@ -37,6 +37,18 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="basic-default-price">Giảm giá</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-merge">
+                                            <input type="number" value="{{ $product->discount }}" id="basic-default-discount"
+                                                name="discount" class="form-control" placeholder="Giảm giá" />
+                                                @error('discount')
+                                                <p class="text-danger">{{$message}}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="">Ảnh</label>
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">

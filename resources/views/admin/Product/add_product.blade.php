@@ -36,6 +36,16 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-discount">Giảm giá</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <input type="number" id="basic-default-discount" name="discount" class="form-control"
+                                            placeholder="Giảm giá" />
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-price">Ảnh</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">

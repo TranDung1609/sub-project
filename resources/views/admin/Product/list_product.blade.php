@@ -16,6 +16,7 @@
                             <th>Name</th>
                             <th>Danh mục</th>
                             <th>Price</th>
+                            <th>Discount</th>
                             <th>Quantity</th>
                             <th>Description</th>
                             {{-- <th>Image</th> --}}
@@ -25,14 +26,15 @@
                     <tbody class="table-border-bottom-0">
                         @foreach ($product as $pro)
                             <tr>
-                                <td>{{ $pro->id }}</td>
-                                <td>{{ $pro->name }}</td>
+                                <td>{{$pro->id}}</td>
+                                <td>{{$pro->name}}</td>
                                 <td>
                                         @foreach ($pro->categories as $category)
-                                            {{ $category->name }}
+                                            {{$category->name}}
                                         @endforeach
                                 </td>
-                                <td>{{ $pro->price }}</td>
+                                <td>{{ $pro->price}}</td>
+                                <td>{{ $pro->discount }}</td>
                                 <td>{{ $pro->quantity }}</td>
                                 <td>{{ $pro->description }}</td>
                                 {{-- <td>
