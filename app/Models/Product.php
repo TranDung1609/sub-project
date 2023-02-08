@@ -33,4 +33,39 @@ class Product extends Model
     {
         return $this->hasMany(OrderDetail::class, 'product_id', 'id');
     }
+    // public function scopeSearch($productuery){
+    //     if($keyword = request()->keyword){
+    //         $productuery = $productuery->where('name', 'like', '%'.$keyword.'%');
+    //     }
+    //     return $productuery;
+    // }
+    public function scopeFilter($product)
+    {
+        if(request('name')){
+            $product->where('name','like','%'.request('name').'%');
+        }
+        if (request('price_from')) {
+            $product->where('price', '>=', request('price_from'))
+                    ->where('price', '<=', request('price_to'))->orderBy('price', 'asc');
+        }
+        if (request('time') == 'newest') {
+            $product->orderBy('created_at', 'desc');
+        }
+        if (request('time') == 'oldest') {
+            $product->orderBy('created_at', 'asc');
+        }
+        if (request('sort') == 'za') {
+            $product->orderBy('name', 'desc');
+        }
+        if (request('sort') == 'az') {
+            $product->orderBy('name', 'asc');
+        }
+        if (request('price') == 'giam') {
+            $product->orderBy('name', 'desc');
+        }
+        if (request('price') == 'tang') {
+            $product->orderBy('name', 'asc');
+        }
+        return $product;
+    }
 }

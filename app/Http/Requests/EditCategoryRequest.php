@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class EditCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,6 @@ class CategoryRequest extends FormRequest
         return [
             'name' => 'required|max:50',
             'status' => 'required',
-            'image' => 'required|max:2058'
         ];
     }
     public function messages()
@@ -35,7 +34,6 @@ class CategoryRequest extends FormRequest
             'name.required' => 'Vui lòng nhập tên danh mục',
             'name.max' => 'Tên danh mục có tối đa 50 ký tự',
             'status.required' => 'Vui lòng chọn Status',
-            'image.required' => 'Vui lòng chọn ảnh'
         ];
     }
 }

@@ -38,4 +38,4 @@ Route::get('/search', [ListApiController::class, 'search']);
 Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
 Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
 Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
-
+Route::get('/filter', [ListApiController::class, 'scopeFilter']);

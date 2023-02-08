@@ -12,7 +12,7 @@
                 <div class="card mb-4">
                     @foreach ($cate as $cate)
                         <div class="card-body">
-                            <form role="form" action="{{ route('category.update', $cate->id) }}" method="POST">
+                            <form role="form" action="{{ route('category.update', $cate->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
@@ -24,6 +24,21 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label" for="">Ảnh</label>
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-group-merge">
+                                            <input type="file" id="" name="image" class="form-control" multiple />
+                                        </div>
+                                        <div >
+                                            <img src="{{asset('/categories/'."$cate->image" )}}" style="max-width: 50px; max-heigh: 50px">
+                                        </div>
+                                        @error('image')
+                                                <p class="text-danger">{{$message}}</p>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label" for="basic-default-message">Status</label>
                                     <div class="col-sm-10">

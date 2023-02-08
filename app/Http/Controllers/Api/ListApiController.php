@@ -18,7 +18,7 @@ class ListApiController extends Controller
     }
     public function getCategory()
     {
-        $category = Category::where('status', '1')->get();
+        $category = Category::where('status', Params::CATEGORY_SHOW)->get();
         return $this->responseData($category);
     }
     public function listProduct()
@@ -27,23 +27,16 @@ class ListApiController extends Controller
         return $this->responseData($product);
     }
     public function search(Request $request){
-        $param= $request->input('search');
-        $product = Product::with(['categories', 'images'])->where('name','like','%'.$param.'%')->paginate(Params::LIMIT_SHOW);
+        // $param= $request->input('search');
+        $product = Product::filter()->paginate(Params::LIMIT_SHOW);
         return $this->responseData($product);
     }
     public function ProductCategory($id)
     {
-        
-
         $list_products = Category::find($id)->products->pluck('id');
         $products = Product::with('images')->whereIn('id',$list_products)->paginate(Params::LIMIT_SHOW);   
         return $this->responseData($products);
     }
-    // public function CategoryProduct($id)
-    // {
-    //     $category = Product::find($id)->categories;
-    //     return $this->responseData($category);
-    // }
     public function getProduct($id){
         $product = Product::with(['images'])->find($id);
         return $this->responseData($product);

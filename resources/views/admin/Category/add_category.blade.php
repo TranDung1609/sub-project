@@ -11,7 +11,7 @@
             <div class="col-xxl">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <form role="form" action="{{ route('category.save') }}" method="POST">
+                        <form role="form" action="{{ route('category.save') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
@@ -21,6 +21,17 @@
                                         @error('name')
                                         <p class="text-danger">{{$message}}</p>
                                         @enderror
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label" for="basic-default-image">Ảnh</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group input-group-merge">
+                                        <input type="file" id="basic-default-image" name="image" class="form-control"/>
+                                    </div>
+                                    @error('image')
+                                        <p class="text-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">

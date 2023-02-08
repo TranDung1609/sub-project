@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\EditCategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -25,9 +26,16 @@ class CategoryController extends Controller
     {
         try {
         $data = $request->all();
-        $cate = new Category();
-        $cate->fill($data);
-        $cate->save();
+        if ($request->hasFile('image')) {
+            $uploadPath = 'categories';
+            $file = $request->file('image');
+            $extention = $file->getClientOriginalExtension();
+            $nameImage = current(explode('.', $file->getClientOriginalName()));
+            $filename = time().$nameImage . '.' . $extention;
+            $file->move($uploadPath, $filename);
+            $data['image']=$filename;
+            Category::create($data);
+        }
 
         return Redirect::to('category/list-category');
     } catch (\Exception $e) {
@@ -46,16 +54,23 @@ class CategoryController extends Controller
     }
     }
 
-    public function update(CategoryRequest $request, $id)
+    public function update(EditCategoryRequest $request, $id)
     {
         try {
         $data = $request->all();
-        $cate = Category::find($request->id);
-        $cate->fill($data);
-        $cate->update();
-
+        $category = Category::find($id)->fill($data);
+        if ($request->hasFile('image')) {
+            $uploadPath = 'categories';
+            $file = $request->file('image');
+            $extention = $file->getClientOriginalExtension();
+            $nameImage = current(explode('.', $file->getClientOriginalName()));
+            $filename = time().$nameImage . '.' . $extention;
+            $file->move($uploadPath, $filename);
+            $data['image']=$filename;
+        }
+        $category->update($data);
         return Redirect::to('category/list-category');
-    } catch (\Exception $e) {
+    }catch (\Exception $e) {
         throw new \Exception($e->getMessage());
     }
     }

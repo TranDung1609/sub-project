@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Params;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -21,10 +22,10 @@ class OrderController extends Controller
                     $data['email'] = $user['email'];
                 }
             }
-            if($data['order_status'] == 1){
+            if($data['order_status'] == Params::ORDER_START){
                 $data['order_status'] = 'Đơn hàng chưa gửi';
             }
-            if($data['order_status'] == 2){
+            if($data['order_status'] == Params::ORDER_END){
                 $data['order_status'] = 'Đã gửi';
             }
         }
@@ -37,7 +38,7 @@ class OrderController extends Controller
     }
     public function complete($id){
         $cart = Order::find($id);
-        $cart->fill(['order_status' => 2])->save();
+        $cart->fill(['order_status' => Params::ORDER_END])->save();
         return redirect('order/list-order');
     }
     
