@@ -28,7 +28,7 @@ class ListApiController extends Controller
     }
     public function search(Request $request){
         // $param= $request->input('search');
-        $product = Product::filter()->paginate(Params::LIMIT_SHOW);
+        $product = Product::with(['categories', 'images'])->filter()->paginate(Params::LIMIT_SHOW);
         return $this->responseData($product);
     }
     public function ProductCategory($id)
@@ -41,4 +41,9 @@ class ListApiController extends Controller
         $product = Product::with(['images'])->find($id);
         return $this->responseData($product);
     }
+    // public function searchP(Request $request)
+    // {
+    //     $product = Product::with('images')->filter()->paginate(Params::LIMIT_SHOW);
+    // return $this->responseData($product);
+    // }
 }
