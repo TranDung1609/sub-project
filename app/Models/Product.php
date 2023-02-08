@@ -61,10 +61,10 @@ class Product extends Model
             $product->orderBy('name', 'asc');
         }
         if (request('price') == 'giam') {
-            $product->orderBy('name', 'desc');
+            $product->orderBy('price', 'desc');
         }
         if (request('price') == 'tang') {
-            $product->orderBy('name', 'asc');
+            $product->orderBy('price', 'asc');
         }
         return $product;
     }
