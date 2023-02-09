@@ -32,9 +32,10 @@ class OrderController extends Controller
         return view('admin.Cart.cart', ['datas' => $datas]);
     }
     public function view($id){
-        $cart = Order::find($id);
-        $order_details = $cart->order_details;
-        return view('admin.Cart.view', ['order_details' => $order_details]);
+        $cart = Order::with('order_details','shipping')->find($id);
+        return view('admin.Cart.view', [
+            'cart'=>$cart
+        ]);
     }
     public function complete($id){
         $cart = Order::find($id);

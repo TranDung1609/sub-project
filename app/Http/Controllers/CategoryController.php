@@ -42,7 +42,6 @@ class CategoryController extends Controller
         throw new \Exception($e->getMessage());
     }
     }
-
     public function edit($id)
     {
         try {
@@ -53,7 +52,6 @@ class CategoryController extends Controller
         throw new \Exception($e->getMessage());
     }
     }
-
     public function update(EditCategoryRequest $request, $id)
     {
         try {

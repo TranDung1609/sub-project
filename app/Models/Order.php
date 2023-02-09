@@ -18,4 +18,8 @@ class Order extends Model
     {
         return $this->hasMany(OrderDetail::class, 'order_id', 'id');
     }
+    public function shipping()
+    {
+        return $this->hasOne(Shipping::class,'order_id', 'id');
+    }
 }

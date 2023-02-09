@@ -33,17 +33,12 @@ class ListApiController extends Controller
     }
     public function ProductCategory($id)
     {
-        $list_products = Category::find($id)->products->pluck('id');
-        $products = Product::with('images')->whereIn('id',$list_products)->paginate(Params::LIMIT_SHOW);   
+        $product_id = Category::find($id)->products->pluck('id');
+        $products = Product::with('images')->whereIn('id',$product_id)->paginate(Params::LIMIT_SHOW);   
         return $this->responseData($products);
     }
     public function getProduct($id){
         $product = Product::with(['images'])->find($id);
         return $this->responseData($product);
     }
-    // public function searchP(Request $request)
-    // {
-    //     $product = Product::with('images')->filter()->paginate(Params::LIMIT_SHOW);
-    // return $this->responseData($product);
-    // }
 }
