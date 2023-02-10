@@ -42,5 +42,4 @@ class OrderController extends Controller
         $cart->fill(['order_status' => Params::ORDER_END])->save();
         return redirect('order/list-order');
     }
-    
 }

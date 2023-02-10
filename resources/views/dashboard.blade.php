@@ -78,7 +78,7 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="" class="app-brand-link">
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">DASHBOARD</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">{{ __('DASHBOARD') }}</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -93,7 +93,7 @@
             <li class="menu-item ">
               <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="">Dashboard</div>
+                <div data-i18n="">{{ __('Dashboard') }}</div>
               </a>
             </li>
 
@@ -101,18 +101,18 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
-                <div data-i18n="Layouts">Users</div>
+                <div data-i18n="Layouts">{{ __('Users') }}</div>
               </a>
 
               <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{ route('user.add') }}" class="menu-link" >
-                      <div data-i18n="Basic">Thêm User</div>
+                      <div data-i18n="Basic">{{ __('Add User') }}</div>
                     </a>
                   </li>
                 <li class="menu-item">
                     <a href="{{ route('user.list') }}" class="menu-link" >
-                      <div data-i18n="Basic">List User</div>
+                      <div data-i18n="Basic">{{ __('List User') }}</div>
                     </a>
                   </li>
               </ul>
@@ -120,17 +120,17 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Categories</div>
+                <div data-i18n="Account Settings">{{ __('Categories') }}</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="{{ route('category.add') }}" class="menu-link" >
-                    <div data-i18n="Basic">Thêm Categories</div>
+                    <div data-i18n="Basic">{{ __('Add Categories') }}</div>
                   </a>
                 </li>
               <li class="menu-item">
                   <a href="{{ route('category.list') }}" class="menu-link" >
-                    <div data-i18n="Basic">List Categories</div>
+                    <div data-i18n="Basic">{{ __('List Categories') }}</div>
                   </a>
                 </li>
               </ul>
@@ -138,17 +138,17 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div data-i18n="Authentications">Products</div>
+                <div data-i18n="Authentications">{{ __('Products') }}</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{ route('product.add') }}" class="menu-link" >
-                      <div data-i18n="Basic">Add Product</div>
+                      <div data-i18n="Basic">{{ __('Add Product') }}</div>
                     </a>
                   </li>
                 <li class="menu-item">
                     <a href="{{ route('product.list') }}" class="menu-link" >
-                      <div data-i18n="Basic">List Product</div>
+                      <div data-i18n="Basic">{{ __('List Product') }}</div>
                     </a>
                   </li>
               </ul>
@@ -156,12 +156,12 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div data-i18n="Authentications">Order</div>
+                <div data-i18n="Authentications">{{ __('Order') }}</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{ route('order.list') }}" class="menu-link" >
-                      <div data-i18n="Basic">List Order</div>
+                      <div data-i18n="Basic">{{ __('List Order') }}</div>
                     </a>
                   </li>
               </ul>
@@ -230,7 +230,7 @@
                     </li>
                     <li>
                       <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                        <span class="align-middle">My Profile</span>
+                        <span class="align-middle">{{ __('My Profile') }}</span>
                       </a>
                     </li>
                     <form  action="{{ route('logout') }}" method="POST">
@@ -288,8 +288,8 @@
     <script>
         $(document).ready(function() {
             $('.js-example-basic-multiple').select2({
-              placeholder: "Chọn danh mục"
-            });  
+                placeholder: "Chọn danh mục"
+            });
         });
     </script>
   </body>

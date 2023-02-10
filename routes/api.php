@@ -23,13 +23,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function(){
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('get-user', [AuthController::class, 'getUserInfo']);
     Route::patch('edit-profile-user', [AuthController::class, 'editProfile']);
     Route::post('/payment', [PaymentController::class, 'payment']);
     Route::get('/list-order', [PaymentController::class, 'history']);
     Route::get('/order/{id}', [PaymentController::class, 'order_details']);
+    Route::post('/send-mail', [PaymentController::class, 'sendMail']);
 });
 Route::middleware('api')->group(function () {
     Route::get('/get-category', [ListApiController::class, 'getCategory']);
@@ -39,5 +40,6 @@ Route::middleware('api')->group(function () {
     Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
     Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
     Route::get('/filter', [ListApiController::class, 'scopeFilter']);
+    
     
 });

@@ -3,24 +3,24 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> List Product</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> {{__('List Product')}}</h4>
 
         <!-- Basic Bootstrap Table -->
         <div class="card">
-            <h5 class="card-header">Table Product</h5>
+            <h5 class="card-header">{{__('Table Product')}}</h5>
             <div class="table-responsive text-nowrap">
                 <table  id="table_id" class="table ">
                     <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Name</th>
-                            <th>Danh mục</th>
-                            <th>Price</th>
-                            <th>Discount</th>
-                            <th>Quantity</th>
-                            <th>Description</th>
+                            <th>{{__('Id')}}</th>
+                            <th>{{__('Tên')}}</th>
+                            <th>{{__('Danh mục')}}</th>
+                            <th>{{__('Giá')}}</th>
+                            <th>{{__('Giảm giá')}}</th>
+                            <th>{{__('Số lượng')}}</th>
+                            <th>{{__('Mô tả')}}</th>
                             {{-- <th>Image</th> --}}
-                            <th>Actions</th>
+                            <th>{{__('Actions')}}</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -45,10 +45,10 @@
                                 <td>
                                     <div>
                                         <a class="btn btn-sm btn-primary" href="{{ route('product.edit', $pro->id) }}">
-                                            <i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <i class="bx bx-edit-alt me-1"></i> {{__('Edit')}}</a>
                                         <a onclick="return confirm('Bạn có muốn xoá product này không?')"
                                             class="btn btn-sm btn-danger" href="{{ route('product.delete', $pro->id) }}">
-                                            <i class="bx bx-trash me-1"></i> Delete</a>
+                                            <i class="bx bx-trash me-1"></i> {{__('Delete')}}</a>
                                     </div>
                                 </td>
                             </tr>

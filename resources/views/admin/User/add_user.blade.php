@@ -3,7 +3,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Add User</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">{{__('Forms/')}}</span>{{__('Add User')}}</h4>
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
@@ -14,7 +14,7 @@
                         <form role="form" action="{{ route('user.save') }}" method="POST">
                             @csrf
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                                <label class="col-sm-2 col-form-label" for="basic-default-name">{{__('Name')}}</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" name="name" id="basic-default-name"
                                         placeholder="Tên" />
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
+                                <label class="col-sm-2 col-form-label" for="basic-default-email">{{__('Email')}}</label>
                                 <div class="col-sm-10">
                                     <div class="input-group input-group-merge">
                                         <input type="email" id="basic-default-email" name="email" class="form-control"
@@ -37,7 +37,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-phone">PassWord</label>
+                                <label class="col-sm-2 col-form-label" for="basic-default-phone">{{__('PassWord')}}</label>
                                 <div class="col-sm-10">
                                     <input type="password" class="form-control" name="password" id="basic-default-name"
                                         placeholder="Mật khẩu" />
@@ -48,12 +48,12 @@
 
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label" for="basic-default-message">Role</label>
+                                <label class="col-sm-2 col-form-label" for="basic-default-message">{{__('Role')}}</label>
                                 <div class="col-sm-10">
                                     <select name="role" class="form-control input-sm m-bot15">
                                         <option value="">Chọn Role</option>
-                                        <option value="0">Admin</option>
-                                        <option value="1">User</option>
+                                        <option value="{{ \App\Constants\Params::ROLE_ADMIN }}">{{__('Admin')}}</option>
+                                        <option value="{{ \App\Constants\Params::ROLE_USER }}">{{__('User')}}</option>
                                     </select>
                                     @error('role')
                                             <p class="text-danger">{{$message}}</p>
@@ -62,7 +62,7 @@
                             </div>
                             <div class="row justify-content-end">
                                 <div class="col-sm-10">
-                                    <button type="submit" class="btn btn-success">Send</button>
+                                    <button type="submit" class="btn btn-success">{{__('Send')}}</button>
                                 </div>
                             </div>
                         </form>

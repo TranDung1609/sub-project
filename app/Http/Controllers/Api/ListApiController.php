@@ -21,7 +21,7 @@ class ListApiController extends Controller
         $category = Category::where('status', Params::CATEGORY_SHOW)->get();
         return $this->responseData($category);
     }
-    public function listProduct()
+    public function listProduct() 
     {
         $product = Product::with(['categories', 'images'])->paginate(Params::LIMIT_SHOW);
         return $this->responseData($product);

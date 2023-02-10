@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\InvoicePaid;
 use App\Constants\Params;
+use App\Http\Requests\PaymentRequest;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Shipping;
@@ -13,12 +15,10 @@ use Illuminate\Support\Facades\DB;
 class PaymentController extends Controller
 
 {
-    // public function __construct()
-    // {
-    //     // $this->middleware('auth:api', ['except' => ['login','register']]);
-    //     Auth::setDefaultDriver('api');
-    // }
-    public function payment(Request $request){
+    public function payment(PaymentRequest $request)
+    {
+        DB::beginTransaction();
+        try {
             $user_id = Auth::user()->id;
             $objects = $request->obj;
             $total = $request->total;
@@ -28,7 +28,7 @@ class PaymentController extends Controller
             $order = new Order();
             $order->user_id = $user_id;
             $order->order_total = $total;
-            $order->order_status = 1;
+            $order->order_status = Params::ORDER_START;
             $order->save();
             $shipping = new Shipping();
             $shipping->order_id = $order->id;
@@ -36,6 +36,7 @@ class PaymentController extends Controller
             $shipping->phone = $phone;
             $shipping->address = $address;
             $shipping->save();
+
             foreach ($objects as $obj) {
                 $product = Product::find($obj['product_id']);
                 $quantity = $product['quantity'] - $obj['quantity'];
@@ -52,17 +53,27 @@ class PaymentController extends Controller
                     ['quantity' => $quantity]
                 );
             }
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Successfully payment ok',
-        ]);
+            $user = Auth::user();
+            $user->notify(new InvoicePaid());
+            DB::commit();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Successfully payment ok',
+            ]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e->getMessage());
+        }
     }
-    public function history(){
+    public function history()
+    {
         $order = Auth::user()->orders;
         return response()->json([$order]);
     }
-    public function order_details($id){
-        $order_details = Order::with('order_details','shipping')->find($id);
+    public function order_details($id)
+    {
+        $user_id = Auth::user()->id;
+        $order_details = Order::with('order_details', 'shipping')->where('user_id', $user_id)->find($id);
         return response()->json([$order_details]);
     }
 }

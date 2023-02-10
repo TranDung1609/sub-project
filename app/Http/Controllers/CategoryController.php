@@ -5,83 +5,60 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\EditCategoryRequest;
 use App\Models\Category;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
+    protected $service;
+    public function __construct(CategoryService $service)
+    {
+        $this->service = $service;
+    }
     public function add_category()
     {
         return view('admin.Category.add_category');
     }
-
     public function list_category()
     {
         $cate = Category::all();
-
         return view('admin.Category.list_category', ['cate' => $cate]);
     }
-
     public function insert(CategoryRequest $request)
     {
+        DB::beginTransaction();
         try {
-        $data = $request->all();
-        if ($request->hasFile('image')) {
-            $uploadPath = 'categories';
-            $file = $request->file('image');
-            $extention = $file->getClientOriginalExtension();
-            $nameImage = current(explode('.', $file->getClientOriginalName()));
-            $filename = time().$nameImage . '.' . $extention;
-            $file->move($uploadPath, $filename);
-            $data['image']=$filename;
-            Category::create($data);
+            $this->service->create_category($request);
+            DB::commit();
+            return Redirect::to('category/list-category');
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e->getMessage());
         }
-
-        return Redirect::to('category/list-category');
-    } catch (\Exception $e) {
-        throw new \Exception($e->getMessage());
-    }
     }
     public function edit($id)
     {
-        try {
-        $cate = Category::where('id', $id)->get();
-
-        return view('admin.Category.edit_category', ['cate' => $cate]);
-    } catch (\Exception $e) {
-        throw new \Exception($e->getMessage());
-    }
+            $cate = Category::where('id', $id)->get();
+            return view('admin.Category.edit_category', ['cate' => $cate]);
     }
     public function update(EditCategoryRequest $request, $id)
     {
+        DB::beginTransaction();
         try {
-        $data = $request->all();
-        $category = Category::find($id)->fill($data);
-        if ($request->hasFile('image')) {
-            $uploadPath = 'categories';
-            $file = $request->file('image');
-            $extention = $file->getClientOriginalExtension();
-            $nameImage = current(explode('.', $file->getClientOriginalName()));
-            $filename = time().$nameImage . '.' . $extention;
-            $file->move($uploadPath, $filename);
-            $data['image']=$filename;
+            $this->service->update_category($request, $id);
+            DB::commit();
+            return Redirect::to('category/list-category');
+        } catch (\Exception $e) {
+            DB::rollback();
+            throw new \Exception($e->getMessage());
         }
-        $category->update($data);
-        return Redirect::to('category/list-category');
-    }catch (\Exception $e) {
-        throw new \Exception($e->getMessage());
     }
-    }
-
     public function delete(Request $request)
     {
-        try {
         $cate = Category::find($request->id);
         $cate->delete();
-
         return Redirect::to('category/list-category');
-    } catch (\Exception $e) {
-        throw new \Exception($e->getMessage());
-    }
     }
 }

@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Http\Requests\UserLoginRequest;
+use App\Http\Requests\UserRegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -9,21 +12,13 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-
     public function __construct()
     {
-        // $this->middleware('auth:api', ['except' => ['login','register']]);
         Auth::setDefaultDriver('api');
     }
-
-    public function login(Request $request)
+    public function login(UserLoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
         $credentials = $request->only('email', 'password');
-
         $token = Auth::attempt($credentials);
         if (!$token) {
             return response()->json([
@@ -31,32 +26,23 @@ class AuthController extends Controller
                 'message' => 'Unauthorized',
             ], 401);
         }
-
         $user = Auth::user();
         return response()->json([
-                'status' => 'success',
-                'user' => $user,
-                'authorisation' => [
-                    'token' => $token,
-                    'type' => 'bearer',
-                ]
-            ]);
-
-    }
-
-    public function register(Request $request){
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
+            'status' => 'success',
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
         ]);
-
+    }
+    public function register(UserRegisterRequest $request)
+    {
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-
         $token = Auth::login($user);
         return response()->json([
             'status' => 'success',
@@ -68,7 +54,6 @@ class AuthController extends Controller
             ]
         ]);
     }
-
     public function logout()
     {
         Auth::logout();
@@ -77,7 +62,6 @@ class AuthController extends Controller
             'message' => 'Successfully logged out',
         ]);
     }
-
     public function refresh()
     {
         return response()->json([
@@ -89,27 +73,25 @@ class AuthController extends Controller
             ]
         ]);
     }
-
-    
-    public function getUserInfo(){
+    public function getUserInfo()
+    {
         $user = Auth::user();
         Auth::user()->profile;
         return response()->json([
             'user' => $user,
         ]);
     }
-
     public function editProfile(Request $request)
     {
         $user = User::findOrFail(Auth::user()->id);
-        if ($request->hasFile('image')) {
-            $uploadPath = 'avatars';
-            $file = $request->file('image');
-            $extention = $file->getClientOriginalExtension();
-            $nameImage = current(explode('.', $file->getClientOriginalName()));
-            $filename = time().$nameImage . '.' . $extention;
-            $file->move($uploadPath, $filename);
-        }
+        // if ($request->hasFile('image')) {
+        //     $uploadPath = 'avatars';
+        //     $file = $request->file('image');
+        //     $extention = $file->getClientOriginalExtension();
+        //     $nameImage = current(explode('.', $file->getClientOriginalName()));
+        //     $filename = time() . $nameImage . '.' . $extention;
+        //     $file->move($uploadPath, $filename);
+        // }
         $user->profile()->updateOrCreate(
             ['user_id' => $request->user()->id],
             [
@@ -117,7 +99,8 @@ class AuthController extends Controller
                 'age' => $request->age,
                 'gender' => $request->gender,
                 'address' => $request->address,
-                'avatar' => $filename
+                // 'avatar' => $filename,
+                'avatar' => 'abc.jpg'
             ]
         );
         $profile = User::find(Auth::user()->id)->profile;
@@ -127,5 +110,5 @@ class AuthController extends Controller
             'message' => 'Successfully edit profile',
             'user' => $user
         ]);
-    } 
+    }
 }

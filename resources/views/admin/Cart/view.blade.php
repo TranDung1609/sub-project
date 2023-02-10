@@ -3,11 +3,11 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Order Details & Shipping</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> {{__('Order Details & Shipping')}}</h4>
 
         <!-- Order Details -->
         <div class="card">
-            <h5 class="card-header">Order Details</h5>
+            <h5 class="card-header">{{__('Order Details')}}</h5>
             <div class="table-responsive text-nowrap">
                 <table id="table_id" class="table">
                     <thead>
@@ -23,7 +23,6 @@
                         @php
                             $i = 1;
                         @endphp
-                        
                         @foreach ($cart->order_details as $order_detail)
                             <tr>
                                 <td>{{ $i++ }}</td>
@@ -40,7 +39,7 @@
         <br>
         {{-- Shipping --}}
         <div class="card">
-            <h5 class="card-header">Shipping</h5>
+            <h5 class="card-header">{{__('Shipping')}}</h5>
             <div class="table-responsive text-nowrap">
                 <table id="table_id" class="table">
                     <thead>

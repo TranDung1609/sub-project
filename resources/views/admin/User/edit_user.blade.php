@@ -3,7 +3,7 @@
     <!-- Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Edit User</h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">{{__('Forms/')}}</span> {{__('Edit User')}}</h4>
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
@@ -15,7 +15,7 @@
                             <form role="form" action="{{ route('user.update', $a->id) }}" method="POST">
                                 @csrf
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-name">{{__('Name')}}</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" value="{{ $a->name }}"
                                             name="name" id="basic-default-name" placeholder="Tên" readonly />
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-email">{{__('Email')}}</label>
                                     <div class="col-sm-10">
                                         <div class="input-group input-group-merge">
                                             <input type="text" id="basic-default-email" value="{{ $a->email }}"
@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-phone">PassWord</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-phone">{{__('PassWord')}}</label>
                                     <div class="col-sm-10">
                                         <input type="password" class="form-control" value="{{ $a->password }}"
                                             name="password" id="basic-default-name" placeholder="Mật khẩu" readonly />
@@ -48,13 +48,13 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label" for="basic-default-message">Role</label>
+                                    <label class="col-sm-2 col-form-label" for="basic-default-message">{{__('Role')}}</label>
                                     <div class="col-sm-10">
                                         <select value="{{ $a->role }}" name="role"
                                             class="form-control input-sm m-bot15">
 
-                                            <option {{ $a->role == 0 ? 'selected' : '' }} value="0">Admin</option>
-                                            <option {{ $a->role == 1 ? 'selected' : '' }} value="1">User</option>
+                                            <option {{ $a->role == \App\Constants\Params::ROLE_ADMIN ? 'selected' : '' }} value="{{\App\Constants\Params::ROLE_ADMIN}}">{{__('Role')}}</option>
+                                            <option {{ $a->role == \App\Constants\Params::ROLE_USER ? 'selected' : '' }} value="{{\App\Constants\Params::ROLE_USER}}">{{__('User')}}</option>
                                         </select>
                                         @error('role')
                                                 <p class="text-danger">{{$message}}</p>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="row justify-content-end">
                                     <div class="col-sm-10">
-                                        <button type="submit" class="btn btn-success">Send</button>
+                                        <button type="submit" class="btn btn-success">{{__('Send')}}</button>
                                     </div>
                                 </div>
                             </form>

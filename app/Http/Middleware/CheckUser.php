@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Constants\Params;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class CheckUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role==0){
+        if(Auth::user()->role== Params::ROLE_ADMIN ){
             return $next($request);
         }
         return redirect('/helo');
