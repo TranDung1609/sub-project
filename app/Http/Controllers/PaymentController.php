@@ -53,8 +53,8 @@ class PaymentController extends Controller
                     ['quantity' => $quantity]
                 );
             }
-            $user = Auth::user();
-            $user->notify(new InvoicePaid());
+            // $user = Auth::user();
+            // $user->notify(new InvoicePaid());
             DB::commit();
             return response()->json([
                 'status' => 'success',
@@ -65,15 +65,15 @@ class PaymentController extends Controller
             throw new \Exception($e->getMessage());
         }
     }
-    // public function sendMail()
-    // {
-    //     $user = Auth::user();
-    //     $user->notify(new InvoicePaid());
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'message' => 'Successfully payment',
-    //     ]);
-    // }
+    public function sendMail()
+    {
+        $user = Auth::user();
+        $user->notify(new InvoicePaid());
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Successfully payment',
+        ]);
+    }
     public function history()
     {
         $order = Auth::user()->orders;
