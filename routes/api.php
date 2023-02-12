@@ -30,7 +30,6 @@ Route::middleware('auth:api')->group(function(){
     Route::post('/payment', [PaymentController::class, 'payment']);
     Route::get('/list-order', [PaymentController::class, 'history']);
     Route::get('/order/{id}', [PaymentController::class, 'order_details']);
-    Route::post('/send-mail', [PaymentController::class, 'sendMail']);
 });
 Route::middleware('api')->group(function () {
     Route::get('/get-category', [ListApiController::class, 'getCategory']);
@@ -39,7 +38,5 @@ Route::middleware('api')->group(function () {
     Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
     Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
     Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
-    Route::get('/filter', [ListApiController::class, 'scopeFilter']);
-    
-    
+    Route::get('/filter', [ListApiController::class, 'scopeFilter']);  
 });
