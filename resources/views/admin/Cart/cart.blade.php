@@ -21,19 +21,19 @@
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @foreach ($datas as $data)
+                        @foreach ($data as $item)
                             <tr>
-                                <td>{{ $data->id }}</td>
-                                <td>{{ $data->name }}</td>
-                                <td>{{ $data->email }}</td>
-                                <td>{{ $data->order_total }}</td>
-                                <td>{{ $data->order_status }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->order_total }}</td>
+                                <td>{{ $item->order_status }}</td>
                                 <td>
                                     <div>
                                         <a class="btn btn-sm btn-primary"
-                                            href="{{ route('order.view', $data->id) }}">{{ __('Chi tiết') }}</a>
+                                            href="{{ route('order.view', $item->id) }}">{{ __('Chi tiết') }}</a>
                                         <a class="btn btn-sm btn-danger"
-                                            href="{{ route('order.complete', $data->id) }}">{{ __('Xác nhận') }}</a>
+                                            href="{{ route('order.complete', $item->id) }}">{{ __('Xác nhận') }}</a>
                                     </div>
                                 </td>
                             </tr>

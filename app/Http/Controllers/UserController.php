@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
-    public function add_user()
+    public function addUser()
     {
         return view('admin.User.add_user');
     }
-    public function list_user()
+    public function listUser()
     {
         $user = User::all();
         return view('admin.User.list_user', ['user' => $user]);

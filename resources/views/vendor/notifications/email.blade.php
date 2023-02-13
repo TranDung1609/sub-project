@@ -1,9 +1,10 @@
 @php
     $user_id = Auth::user()->id;
-    $order = App\Models\Order::with('order_details', 'shipping','user')
+    $order = App\Models\Order::with('orderDetails', 'shipping','user')
         ->where('user_id', $user_id)
         ->orderBy('created_at', 'desc')
         ->first();
+        $i=1;
 @endphp
 <div class="card">
     <h5 class="card-header">{{ __('Hoá đơn') }}</h5>
@@ -55,10 +56,7 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @php
-                    $i = 1;
-                @endphp
-                @foreach ($order->order_details as $order_detail)
+                @foreach ($order->orderDetails as $order_detail)
                     <tr>
                         <td>{{ $i++ }}</td>
                         <td>{{ $order_detail->product_name }}</td>

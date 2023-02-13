@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\ListApiController;
+use App\Http\Controllers\ListApiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Http\Request;
@@ -29,14 +29,14 @@ Route::middleware('auth:api')->group(function(){
     Route::patch('edit-profile-user', [AuthController::class, 'editProfile']);
     Route::post('/payment', [PaymentController::class, 'payment']);
     Route::get('/list-order', [PaymentController::class, 'history']);
-    Route::get('/order/{id}', [PaymentController::class, 'order_details']);
+    Route::get('/order/{id}', [PaymentController::class, 'orderDetails']);
 });
 Route::middleware('api')->group(function () {
     Route::get('/get-category', [ListApiController::class, 'getCategory']);
     Route::get('/get-product', [ListApiController::class, 'listProduct']);
     Route::get('/search', [ListApiController::class, 'search']);
-    Route::get('/category-product/{id}', [ListApiController::class, 'ProductCategory']);
+    Route::get('/category-product/{id}', [ListApiController::class, 'productCategory']);
     Route::get('/product/{id}', [ListApiController::class, 'getProduct']);
-    Route::get('/product-category/{id}', [ListApiController::class, 'CategoryProduct']);
+    Route::get('/product-category/{id}', [ListApiController::class, 'categoryProduct']);
     Route::get('/filter', [ListApiController::class, 'scopeFilter']);  
 });

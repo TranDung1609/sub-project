@@ -12,27 +12,27 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $datas = Order::orderBy('id','DESC')->get();
-        $user_ids = $datas->pluck('user_id');
+        $data = Order::orderBy('id','DESC')->get();
+        $user_ids = $data->pluck('user_id');
         $users = User::whereIn('id', $user_ids)->get()->toArray();
-        foreach ($datas as $data){
+        foreach ($data as $item){
             foreach ($users as $user){
-                if($user['id'] == $data['user_id']){
-                    $data['name'] = $user['name'];
-                    $data['email'] = $user['email'];
+                if($user['id'] == $item['user_id']){
+                    $item['name'] = $user['name'];
+                    $item['email'] = $user['email'];
                 }
             }
-            if($data['order_status'] == Params::ORDER_START){
-                $data['order_status'] = 'Đơn hàng chưa gửi';
+            if($item['order_status'] == Params::ORDER_START){
+                $item['order_status'] = 'Đơn hàng chưa gửi';
             }
-            if($data['order_status'] == Params::ORDER_END){
-                $data['order_status'] = 'Đã gửi';
+            if($item['order_status'] == Params::ORDER_END){
+                $item['order_status'] = 'Đã gửi';
             }
         }
-        return view('admin.Cart.cart', ['datas' => $datas]);
+        return view('admin.Cart.cart', ['data' => $data]);
     }
     public function view($id){
-        $cart = Order::with('order_details','shipping')->find($id);
+        $cart = Order::with('orderDetails','shipping')->find($id);
         return view('admin.Cart.view', [
             'cart'=>$cart
         ]);

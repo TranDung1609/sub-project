@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -30,11 +30,11 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'user' => $user,
-            'authorisation' => [
+            'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ]);
+        ],Response::HTTP_OK);
     }
     public function register(UserRegisterRequest $request)
     {
@@ -48,11 +48,11 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'User created successfully',
             'user' => $user,
-            'authorisation' => [
+            'authorization' => [
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ]);
+        ],Response::HTTP_OK);
     }
     public function logout()
     {
@@ -60,18 +60,19 @@ class AuthController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
-        ]);
+        ],
+        Response::HTTP_OK);
     }
     public function refresh()
     {
         return response()->json([
             'status' => 'success',
             'user' => Auth::user(),
-            'authorisation' => [
+            'authorization' => [
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
             ]
-        ]);
+        ], Response::HTTP_OK);
     }
     public function getUserInfo()
     {
@@ -79,7 +80,7 @@ class AuthController extends Controller
         Auth::user()->profile;
         return response()->json([
             'user' => $user,
-        ]);
+        ],Response::HTTP_OK);
     }
     public function editProfile(Request $request)
     {
@@ -109,6 +110,6 @@ class AuthController extends Controller
             'status' => 'success',
             'message' => 'Successfully edit profile',
             'user' => $user
-        ]);
+        ],Response::HTTP_OK);
     }
 }

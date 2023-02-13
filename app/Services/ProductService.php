@@ -6,7 +6,7 @@ use App\Models\Product;
 
 class ProductService
 {
-    public function create_product($request)
+    public function createProduct($request)
     {
         $data = $request->all();
         $product = new Product();
@@ -26,7 +26,7 @@ class ProductService
             }
         }
     }
-    public function update_product($request, $id)
+    public function updateProduct($request, $id)
     {
         $data = $request->all();
         $product = Product::find($id)->fill($data);

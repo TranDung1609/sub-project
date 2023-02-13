@@ -11,6 +11,7 @@ use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class PaymentController extends Controller
 
@@ -53,8 +54,8 @@ class PaymentController extends Controller
                     ['quantity' => $quantity]
                 );
             }
-            // $user = Auth::user();
-            // $user->notify(new InvoicePaid());
+            $user = Auth::user();
+            $user->notify(new InvoicePaid());
             DB::commit();
             return response()->json([
                 'status' => 'success',
@@ -72,17 +73,17 @@ class PaymentController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully payment',
-        ]);
+        ], Response::HTTP_OK);
     }
     public function history()
     {
         $order = Auth::user()->orders;
-        return response()->json([$order]);
+        return response()->json([$order], Response::HTTP_OK);
     }
-    public function order_details($id)
+    public function orderDetails($id)
     {
         $user_id = Auth::user()->id;
-        $order_details = Order::with('order_details', 'shipping')->where('user_id', $user_id)->find($id);
-        return response()->json([$order_details]);
+        $order_details = Order::with('orderDetails', 'shipping')->where('user_id', $user_id)->find($id);
+        return response()->json([$order_details], Response::HTTP_OK);
     }
 }

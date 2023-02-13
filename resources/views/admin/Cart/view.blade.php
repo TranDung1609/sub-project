@@ -23,7 +23,7 @@
                         @php
                             $i = 1;
                         @endphp
-                        @foreach ($cart->order_details as $order_detail)
+                        @foreach ($cart->orderDetails as $order_detail)
                             <tr>
                                 <td>{{ $i++ }}</td>
                                 <td>{{ $order_detail->product_name }}</td>

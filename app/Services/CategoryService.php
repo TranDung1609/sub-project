@@ -6,7 +6,7 @@ use App\Models\Category;
 
 class CategoryService
 {
-    public function create_category($request)
+    public function createCategory($request)
     {
         $data = $request->all();
         if ($request->hasFile('image')) {
@@ -20,7 +20,7 @@ class CategoryService
             Category::create($data);
         }
     }
-    public function update_category($request, $id)
+    public function updateCategory($request, $id)
     {
         $data = $request->all();
         $category = Category::find($id)->fill($data);

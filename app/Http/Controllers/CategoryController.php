@@ -17,11 +17,11 @@ class CategoryController extends Controller
     {
         $this->service = $service;
     }
-    public function add_category()
+    public function addCategory()
     {
         return view('admin.Category.add_category');
     }
-    public function list_category()
+    public function listCategory()
     {
         $cate = Category::all();
         return view('admin.Category.list_category', ['cate' => $cate]);
@@ -30,7 +30,7 @@ class CategoryController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->service->create_category($request);
+            $this->service->createCategory($request);
             DB::commit();
             return Redirect::to('category/list-category');
         } catch (\Exception $e) {
@@ -47,7 +47,7 @@ class CategoryController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->service->update_category($request, $id);
+            $this->service->updateCategory($request, $id);
             DB::commit();
             return Redirect::to('category/list-category');
         } catch (\Exception $e) {

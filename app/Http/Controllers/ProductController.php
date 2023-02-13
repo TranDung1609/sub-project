@@ -17,7 +17,7 @@ class ProductController extends Controller
     {
         $this->service = $service;
     }
-    public function add_product()
+    public function addProduct()
     {
         $category = Category::all();
         return view('admin.Product.add_product', ['category' => $category]);
@@ -31,7 +31,7 @@ class ProductController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->service->create_product($request);
+            $this->service->createProduct($request);
             DB::commit();
             return redirect('product/list-product');
         } catch (\Exception $e) {
@@ -45,12 +45,11 @@ class ProductController extends Controller
         $category = Category::all();
         return view('admin.Product.edit_product', ['product' => $product], ['category' => $category]);
     }
-
     public function update(ProductRequest $request, $id)
     {
         DB::beginTransaction();
         try {
-            $this->service->update_product($request, $id);
+            $this->service->updateProduct($request, $id);
             DB::commit();
             return redirect('product/list-product');
         } catch (\Exception $e) {
