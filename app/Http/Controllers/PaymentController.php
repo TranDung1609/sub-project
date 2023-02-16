@@ -54,8 +54,8 @@ class PaymentController extends Controller
                     ['quantity' => $quantity]
                 );
             }
-            // $user = Auth::user();
-            // $user->notify(new InvoicePaid());
+            $user = Auth::user();
+            $user->notify(new InvoicePaid());
             DB::commit();
             return response()->json([
                 'status' => 'success',
